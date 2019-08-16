@@ -71,7 +71,7 @@ registro.*/
         (v[i%3]->topo)->op=sop;
         (v[i%3]->topo)->valor=svalor;
     }
-    printf("-:| RELATORIO PARCIAL |:-\n3\n");
+    printf("-:| RELATÓRIO PARCIAL |:-\n3\n");
     for(int i=0;i<3;i++){
         printf("guiche %d\n",i+1);
         show_all(v[i]);
