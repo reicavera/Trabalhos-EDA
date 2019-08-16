@@ -37,10 +37,10 @@ void show_all(guiche* gn){
         reg* aux;
         aux=gn->topo;
         while(aux->prox!=NULL){
-            printf("[%d,%d,%c,%d]\n",aux->cpfc,aux->cpft,aux->op,aux->valor);
+            printf("[%d, %d, %c, %d]\n",aux->cpfc,aux->cpft,aux->op,aux->valor);
             aux=aux->prox;
         }
-        printf("[%d,%d,%c,%d]\n",aux->cpfc,aux->cpft,aux->op,aux->valor);
+        printf("[%d, %d, %c, %d]\n",aux->cpfc,aux->cpft,aux->op,aux->valor);
     }
 }
 void delete_all(guiche* gn){
