@@ -25,6 +25,9 @@ node_l* create_node_l(){
     n->nop=1;
     return n;
 }
+void destroy_node_l(node_l* n){
+    free(n);
+}
 struct stack{
     node_p* top;
     long long counter;
@@ -40,19 +43,22 @@ stack* create_stack(){
 void add_stack(stack* s,node_p* n){
     n->next=s->top;
     s->top=n;
+    s->counter++;
 }
 node_p* remove_stack(stack* s){
     node_p* aux;
     aux=s->top;
     s->top=aux->next;
+    s->counter--;
     return aux;
 }
 void destroy_stack(stack* s){
     node_p* n1;
-    while(s->top!=NULL){
-        n1=remove_stack(s);
-        destroy_node_p(n1);
-    }
+    for(int i=0;i<3;i++)
+        while(s->top!=NULL){
+            n1=remove_stack(s);
+            destroy_node_p(n1);
+        }
     free(s);
 }
 struct queue{
@@ -62,6 +68,7 @@ struct queue{
 typedef struct queue queue;
 queue* create_queue(long long n){
     queue* aux;
+    aux=malloc(sizeof(queue));
     aux->data=malloc(sizeof(node_p)*n);
     aux->max_size=n;
     aux->size=0;
@@ -85,36 +92,40 @@ node_p* remove_queue(queue* f){
     aux->op=f->data[f->front].op;
     aux->valor=f->data[f->front].valor;
     f->front=(f->front+1)%f->max_size;
+    f->size--;
     return aux;
 }
 void destroy_queue(queue* f){
     free(f->data);
+    free(f);
 }
 struct list{
     node_l* first;
+    long long counter;
 };
 typedef struct list list;
 list* create_list(){
     list* l;
     l=malloc(sizeof(list));
     l->first=NULL;
+    l->counter=0;
     return l;
 }
 node_p* add_list(list* l,stack* s){
     node_p* n;
     n=remove_stack(s);
     switch(n->op){
-    case 'D':
-        search_list(0,n->cpfc,l);
-        search_list(n->valor,n->cpft,l);
-        break;
-    case 'S':
-        search_list(-n->valor,n->cpfc,l);
-        break;
-    case 'T':
-        search_list(-n->valor,n->cpfc,l);
-        search_list(n->valor,n->cpft,l);
-        break;
+        case 'S':
+            search_list(-n->valor,n->cpfc,l);
+            break;
+        case 'D':
+            search_list(n->valor*0,n->cpfc,l);
+            search_list(n->valor,n->cpft,l);
+            break;
+        case 'T':
+            search_list(-n->valor,n->cpfc,l);
+            search_list(n->valor,n->cpft,l);
+            break;
     }
     return n;
 }
@@ -127,6 +138,7 @@ void search_list(long long valor,long long cpf,list* l){
         n->cpf=cpf;
         n->next=l->first;
         l->first=n;
+        l->counter++;
     }
     else if(l->first->cpf==cpf){
         l->first->nop++;
@@ -142,6 +154,7 @@ void search_list(long long valor,long long cpf,list* l){
             n->cpf=cpf;
             n->next=aux->next;
             aux->next=n;
+            l->counter++;
         }
         else{
             aux->next->nop++;
@@ -149,25 +162,31 @@ void search_list(long long valor,long long cpf,list* l){
         }
     }
 }
-void destroy_list(list* l){
+node_l* remove_list_first(list* l){
     node_l* aux;
-    while(l->first!=NULL){
-        aux=l->first;
-        l->first=aux->next;
-        free(aux);
-    }
-    free(l);
+    aux=l->first;
+    l->first=aux->next;
+    return aux;
 }
-void display_partial(stack* s[3],list* l,long long n){
+void display_partial(list* l,stack* s[3],long long n){
     printf("-:| RELATÓRIO PARCIAL |:-\n3\n");
     node_p* n1;
-    for(int i=0;i<3;i++){
-        printf("Guiche %d: %lli\n",i,s[i]->counter);
-        for(int j=0;j<n;j++){
-            n1=add_list(l,s);
+    for(long long i=0;i<3;i++){
+        printf("Guiche %lli: %lli\n",i+1,s[i]->counter);
+        while(s[i]->counter!=0){
+            n1=add_list(l,s[i]);
             printf("[%lli,%lli,%c,%lli]\n",n1->cpfc,n1->cpft,n1->op,n1->valor);
             destroy_node_p(n1);
         }
+    }
+}
+void display_final(list* l){
+    printf("-:|RELATÓRIO FINAL |:-\n%lli\n",l->counter);
+    node_l* n;
+    while(l->first!=NULL){
+        n=remove_list_first(l);
+        printf("-:[ %lli : %lli %lli\n",n->cpf,n->nop,n->balance);
+        destroy_node_l(n);
     }
 }
 int main(){
@@ -177,7 +196,7 @@ int main(){
     scanf("%lli",&n);
     f=create_queue(n);
     for(long long i=0;i<n;i++){
-        scanf("%lli %lli %c %lli",scpfc,scpft,sop,svalor);
+        scanf("%lli %lli %c %lli",&scpfc,&scpft,&sop,&svalor);
         add_queue(f,scpfc,scpft,sop,svalor);
     }
     stack* s[3];
@@ -187,8 +206,8 @@ int main(){
         add_stack(s[i%3],remove_queue(f));
     list* l;
     l=create_list();
-    display_partial(s,l,n);
-    destroy_list(l);
+    display_partial(l,s,n);
+    display_final(l);
     for(int i=0;i<3;i++)
         destroy_stack(s[i]);
     destroy_queue(f);
