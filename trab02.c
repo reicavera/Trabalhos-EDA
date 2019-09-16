@@ -111,24 +111,6 @@ list* create_list(){
     l->counter=0;
     return l;
 }
-node_p* add_list(list* l,stack* s){
-    node_p* n;
-    n=remove_stack(s);
-    switch(n->op){
-        case 'S':
-            search_list(-n->valor,n->cpfc,l);
-            break;
-        case 'D':
-            search_list(n->valor*0,n->cpfc,l);
-            search_list(n->valor,n->cpft,l);
-            break;
-        case 'T':
-            search_list(-n->valor,n->cpfc,l);
-            search_list(n->valor,n->cpft,l);
-            break;
-    }
-    return n;
-}
 void search_list(long long valor,long long cpf,list* l){
     node_l* aux;
     node_l* n;
@@ -162,6 +144,25 @@ void search_list(long long valor,long long cpf,list* l){
         }
     }
 }
+node_p* add_list(list* l,stack* s){
+    node_p* n;
+    n=remove_stack(s);
+    switch(n->op){
+        case 'S':
+            search_list(-n->valor,n->cpfc,l);
+            break;
+        case 'D':
+            search_list(0,n->cpfc,l);
+            search_list(n->valor,n->cpft,l);
+            break;
+        case 'T':
+            search_list(-n->valor,n->cpfc,l);
+            search_list(n->valor,n->cpft,l);
+            break;
+    }
+    return n;
+}
+
 node_l* remove_list_first(list* l){
     node_l* aux;
     aux=l->first;
@@ -176,7 +177,7 @@ void destroy_list(list* l){
     }
     free(l);
 }
-void display_partial(list* l,stack* s[3],long long n){
+void display_partial(list* l,stack* s[3]){
     printf("-:| RELATÓRIO PARCIAL |:-\n3\n");
     node_p* n1;
     for(long long i=0;i<3;i++){
@@ -214,7 +215,7 @@ int main(){
         add_stack(s[i%3],remove_queue(f));
     list* l;
     l=create_list();
-    display_partial(l,s,n);
+    display_partial(l,s);
     display_final(l);
     for(int i=0;i<3;i++)
         destroy_stack(s[i]);
