@@ -206,16 +206,13 @@ void display_partial(list* l,stack* s[3]){
     }
 }
 void display_final(list* l){
-    printf("-:| RELATÓRIO FINAL |:-\n %lli\n",l->counter);
+    printf("\n-:| RELATÓRIO FINAL |:-\n %lli\n",l->counter);
     node_l* n;
-    while(l->first->next!=NULL){
+    while(l->first!=NULL){
         n=remove_list_first(l);
         printf("-:[ %lli : %lli %lli\n",n->cpf,n->nop,n->balance);
         destroy_node_l(n);
     }
-    n=remove_list_first(l);
-    printf("-:[ %lli : %lli %lli",n->cpf,n->nop,n->balance);
-    destroy_node_l(n);
 }
 int main(){
     long long n,scpfc,scpft,svalor;
