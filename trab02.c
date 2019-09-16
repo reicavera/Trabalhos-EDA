@@ -190,7 +190,7 @@ void display_partial(list* l,stack* s[3]){
     }
 }
 void display_final(list* l){
-    printf("-:|RELATÓRIO FINAL |:-\n%lli\n",l->counter);
+    printf("-:| RELATÓRIO FINAL|:-\n %lli\n",l->counter);
     node_l* n;
     while(l->first!=NULL){
         n=remove_list_first(l);
