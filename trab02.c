@@ -1,12 +1,16 @@
 #include<stdio.h>
 #include<stdlib.h>
 struct node_p{
+    //Registro de dados do cliente, contendo:
+    //cpf do cliente, cpf de terceiros, o valor da operação,
+    //o tipo de operação efetuada e um ponteiro para o próximo Nó.
     long long cpfc,cpft,valor;
     char op;
     struct node_p* next;
 };
 typedef struct node_p node_p;
 node_p* create_node_p(){
+    //Um auxiliar aloca espaço para um Nó padrão e retorna um endereço para o mesmo.
     node_p* aux;
     aux=malloc(sizeof(node_p));
     return aux;
@@ -127,7 +131,11 @@ void search_list(long long valor,long long cpf,list* l){
     //maior do que do próvável novo nó.Se sim,adiciona um nó na primeira posição da lista.
     //Se não,verifica se o cpf do primeiro elemento é igual ao do cpf próvalvel nó.Se sim,
     //apenas altera o saldo e incrementa o número de operações do primeiro elemento da lista.
-    //Se não,é feito um loop para percorrer a lista até que
+    //Se não,é feito um loop com um auxiliar percorrendo a lista até que se chegue no ultimo 
+    //elemento ou que o cpf do próximo elemento seja deixe de ser menor que o cpf do possível 
+    //novo elemento.Caso o auxiliar tenha chegado  ao ultimo elemento ou que o cpf do próximo
+    //seja maior,adiciona um nó logo após o nó apontado pelo auxiliar.Caso contrário,apenas
+    //altera o saldo e incrementa o número de operações do próximo do auxiliar.Não retorna nada.
     node_l* aux;
     node_l* n;
     if(l->first==NULL || l->first->cpf>cpf){
@@ -161,6 +169,8 @@ void search_list(long long valor,long long cpf,list* l){
     }
 }
 node_p* add_list(list* l,stack* s){
+    //retira um nó da pilha e verifica os possíveis casos de mudança na lista baseada
+    //na operação bancária armazenda no nó.Retorna o nó padrão retirado da pilha.
     node_p* n;
     n=remove_stack(s);
     switch(n->op){
@@ -180,6 +190,7 @@ node_p* add_list(list* l,stack* s){
 }
 
 node_l* remove_list_first(list* l){
+    //Retira e retorna o primeiro elemento da lista.
     node_l* aux;
     aux=l->first;
     l->first=aux->next;
