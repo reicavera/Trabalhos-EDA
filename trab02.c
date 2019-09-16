@@ -34,6 +34,7 @@ struct stack{
 };
 typedef struct stack stack;
 stack* create_stack(){
+    //Um auxiliar aloca espaço espaço para uma Pilha vazia e retorna o seu endereço.
     stack* aux;
     aux=malloc(sizeof(stack));
     aux->top=NULL;
@@ -67,6 +68,7 @@ struct queue{
 };
 typedef struct queue queue;
 queue* create_queue(long long n){
+     //Cria uma fila circular estática. Seus elementos são nós padrões
     queue* aux;
     aux=malloc(sizeof(queue));
     aux->data=malloc(sizeof(node_p)*n);
@@ -76,7 +78,11 @@ queue* create_queue(long long n){
     aux->bottom=0;
     return aux;
 }
+
 void add_queue(queue* f,long long scpfc,long long scpft,char sop,long long svalor){
+    //Coloca os valores do cpf cliente,cpf terceiro,valor e a operação no fundo da fila,
+    //muda o novo fundo para o próximo elemento e incrementa em 1 o indicador do tamanho
+    //atual da fila.
     f->data[f->bottom].cpfc=scpfc;
     f->data[f->bottom].cpft=scpft;
     f->data[f->bottom].op=sop;
@@ -85,6 +91,7 @@ void add_queue(queue* f,long long scpfc,long long scpft,char sop,long long svalo
     f->size++;
 }
 node_p* remove_queue(queue* f){
+    //Remove elemento da fila. Retorna o nó padrão removido.
     node_p* aux;
     aux=create_node_p();
     aux->cpfc=f->data[f->front].cpfc;
@@ -96,15 +103,19 @@ node_p* remove_queue(queue* f){
     return aux;
 }
 void destroy_queue(queue* f){
+     //Desaloca a fila e seus elementos. Não retorna nada.
     free(f->data);
     free(f);
 }
 struct list{
+    //O registro da lista contém um contador dque indica o número de elementos da lista
+    //e um ponteiro indicando o primeiro nó da lista.
     node_l* first;
     long long counter;
 };
 typedef struct list list;
 list* create_list(){
+    //Um auxiliar aloca um registro de pilha e retorna o endereço alocado.
     list* l;
     l=malloc(sizeof(list));
     l->first=NULL;
@@ -112,6 +123,11 @@ list* create_list(){
     return l;
 }
 void search_list(long long valor,long long cpf,list* l){
+    //Primeiramente verifica se a lista está vazia ou se o cpf do primeiro elemento é
+    //maior do que do próvável novo nó.Se sim,adiciona um nó na primeira posição da lista.
+    //Se não,verifica se o cpf do primeiro elemento é igual ao do cpf próvalvel nó.Se sim,
+    //apenas altera o saldo e incrementa o número de operações do primeiro elemento da lista.
+    //Se não,é feito um loop para percorrer a lista até que
     node_l* aux;
     node_l* n;
     if(l->first==NULL || l->first->cpf>cpf){
@@ -190,13 +206,16 @@ void display_partial(list* l,stack* s[3]){
     }
 }
 void display_final(list* l){
-    printf("-:| RELATÓRIO FINAL|:-\n %lli\n",l->counter);
+    printf("-:| RELATÓRIO FINAL |:-\n %lli\n",l->counter);
     node_l* n;
-    while(l->first!=NULL){
+    while(l->first->next!=NULL){
         n=remove_list_first(l);
         printf("-:[ %lli : %lli %lli\n",n->cpf,n->nop,n->balance);
         destroy_node_l(n);
     }
+    n=remove_list_first(l);
+    printf("-:[ %lli : %lli %lli",n->cpf,n->nop,n->balance);
+    destroy_node_l(n);
 }
 int main(){
     long long n,scpfc,scpft,svalor;
