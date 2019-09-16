@@ -16,29 +16,37 @@ node_p* create_node_p(){
     return aux;
 }
 void destroy_node_p(node_p* n){
+    //Recebe o endereço de um Nó padrão e desaloca o espaço ocupado por ele.
     free(n);
 }
 struct node_l{
+    //Define o registro de dados para impressão do relatório final como Nó de lista.
     long long cpf,nop,balance;
     struct node_l* next;
 };
 typedef struct node_l node_l;
 node_l* create_node_l(){
+     //Um auxiliar aloca espaço para um Nó de lista(Inicia o número de operações desse 
+    //Nó com uma operação e retorna o endereço do Nó alocado.
     node_l* n;
     n=malloc(sizeof(node_l));
     n->nop=1;
     return n;
 }
 void destroy_node_l(node_l* n){
+     //Desaloca o espaço ocupado por esse Nó na memória.
     free(n);
 }
 struct stack{
+    //Registro de dados de um pilha que contém:
+    //Um ponteiro para o topo da pilha e um contador
+    //para o número de elementos nessa pilha.
     node_p* top;
     long long counter;
 };
 typedef struct stack stack;
 stack* create_stack(){
-    //Um auxiliar aloca espaço espaço para uma Pilha vazia e retorna o seu endereço.
+    //Um auxiliar aloca espaço espaço para uma pilha vazia e retorna o seu endereço.
     stack* aux;
     aux=malloc(sizeof(stack));
     aux->top=NULL;
@@ -46,11 +54,14 @@ stack* create_stack(){
     return aux;
 }
 void add_stack(stack* s,node_p* n){
+    //Coloca o Nó no topo da pilha e Adiciona mais um ao contador de elementos da pilha.
     n->next=s->top;
     s->top=n;
     s->counter++;
 }
 node_p* remove_stack(stack* s){
+    //Guarda o endereço do elemento do topo da pilha em um auxiliar,retira o topo da pilha e
+    //subtrai um da quantidade de elementos da pilha.Retorna o endereço do elemento removido.
     node_p* aux;
     aux=s->top;
     s->top=aux->next;
@@ -58,6 +69,8 @@ node_p* remove_stack(stack* s){
     return aux;
 }
 void destroy_stack(stack* s){
+    //Desaloca o espaço na memória de todos os elementos presentes na pilha para depois
+    //desalocar o espaço ocupado pela própria pilha.
     node_p* n1;
     for(int i=0;i<3;i++)
         while(s->top!=NULL){
@@ -67,6 +80,8 @@ void destroy_stack(stack* s){
     free(s);
 }
 struct queue{
+    //Registro de lista que contém indicadores do tamanho máximo e atual,
+    //da frete e do fundo da fila e um ponteiro para alocar os elementos.
     node_p* data;
     long long max_size,size,front,bottom;
 };
@@ -197,6 +212,8 @@ node_l* remove_list_first(list* l){
     return aux;
 }
 void destroy_list(list* l){
+    //Enquanto houver elementos na lista,é retirado e desalocado o primeiro nó da lista.
+    //Então desaloca a lista em si.Não retorna nada.
     node_l* aux;
     while(l->first!=NULL){
         aux=remove_list_first(l);
@@ -205,6 +222,9 @@ void destroy_list(list* l){
     free(l);
 }
 void display_partial(list* l,stack* s[3]){
+    //Primeira parte da saída do programa.Vale notar que essa função 
+    //também chama a adição de nós na lista e a desalocação dos nós 
+    //da pilha.
     printf("-:| RELATÓRIO PARCIAL |:-\n3\n");
     node_p* n1;
     for(long long i=0;i<3;i++){
@@ -217,6 +237,8 @@ void display_partial(list* l,stack* s[3]){
     }
 }
 void display_final(list* l){
+    //Segunda parte da saída do programa.Vale notar que essa função também
+    // chama a desalocação da dos nós de lista.
     printf("\n-:| RELATÓRIO FINAL |:-\n %lli\n",l->counter);
     node_l* n;
     while(l->first!=NULL){
