@@ -168,6 +168,14 @@ node_l* remove_list_first(list* l){
     l->first=aux->next;
     return aux;
 }
+void destroy_list(list* l){
+    node_l* aux;
+    while(l->first!=NULL){
+        aux=remove_list_first(l);
+        destroy_node_l(aux);
+    }
+    free(l);
+}
 void display_partial(list* l,stack* s[3],long long n){
     printf("-:| RELATÓRIO PARCIAL |:-\n3\n");
     node_p* n1;
@@ -211,5 +219,6 @@ int main(){
     for(int i=0;i<3;i++)
         destroy_stack(s[i]);
     destroy_queue(f);
+    destroy_list(l);
     return 0;
 }
