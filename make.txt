@@ -1,14 +1,14 @@
-main:   main.o  node.o  stack.o queue.o list.o
-    gcc main.o  node.o  stack.o queue.o list.o  -o main
+main: main.o  node.o  stack.o queue.o list.o
+    gcc main.o node.o stack.o queue.o list.o -o main
 main.o: main.c
-    gcc -c main.c
+    gcc -c main.c -o main.o
 node.o: node.c  node.h
-    gcc -c node.c
-stack.o: stack.c  stack.h
-    gcc -c stack.c
-queue.o: queue.c  queue.h
+    gcc -c node.c -o node.o
+stack.o: stack.c
+    gcc -c stack.c -o stack.o
+queue.o: queue.c
     gcc -c queue.c
-list.o: list.c  list.h
+list.o: list.c list.h
     gcc -c list.c
 clear:
     rm *.o
