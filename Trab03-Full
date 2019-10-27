@@ -15,8 +15,6 @@ node_p* create_node_p(){
     //Um auxiliar aloca espaço para um Nó padrão e retorna um endereço para o mesmo.
     node_p* aux;
     aux=malloc(sizeof(node_p));
-    if(aux==NULL)
-        return NULL;
     return aux;
 }
 long long node_p_display_cpfc(node_p* p){
@@ -64,14 +62,19 @@ struct stack{
     long long counter;
 };
 typedef struct stack stack;
-stack* create_stack(){
+stack** create_stack(long long m){
     //Um auxiliar aloca espaço espaço para uma pilha vazia e retorna o seu endereço.
-    stack* aux;
-    aux=malloc(sizeof(stack));
+    stack** aux;
+    aux=malloc(sizeof(stack*)*m);
     if(aux==NULL)
         return NULL;
-    aux->top=NULL;
-    aux->counter=0;
+    for(long long i=0;i<m;i++){
+        aux[i]=malloc(sizeof(stack));
+        if(aux[i]==NULL)
+            return NULL;
+        aux[i]->top=NULL;
+        aux[i]->counter=0;
+    }
     return aux;
 }
 int empty_stack(stack* s){
@@ -116,11 +119,7 @@ queue* create_queue(long long n){
      //Cria uma fila circular estática. Seus elementos são nós padrões
     queue* aux;
     aux=malloc(sizeof(queue));
-    if(aux==NULL)
-        return NULL;
     aux->data=malloc(sizeof(node_p)*n);
-    if(aux->data==NULL)
-        return NULL;
     aux->max_size=n;
     aux->size=0;
     aux->front=0;
@@ -246,11 +245,11 @@ void destroy_list(list* l){
     }
     free(l);
 }
-void display_partial(long long j,long long m,list* l,stack* s[m]){
+void display_partial(long long j,long long m,list* l,stack** s){
     //Primeira parte da saída do programa.Vale notar que essa função
     //também chama a adição de nós na lista e a desalocação dos nós
     //da pilha.
-    printf("-:| RELATORIO DIARIO %lli |:-\n%lli\n",j+1,m);
+    printf("-:| RELATORIO DIARIO %lli |:-\n%lli\n",j,m);
     node_p* n1;
     for(long long i=0;i<m;i++){
         printf("Guiche %lli: %lli\n",i+1,s[i]->counter);
@@ -292,10 +291,9 @@ int main(){
     l=create_list();
     scanf("%lli %lli %lli",&n,&m,&d);
     f=create_queue(n);
-    stack* s[m];
-    for(int i=1;i<m;i++)
-        s[i]=create_stack();
-    for(j=0;j*d<=n;j++){
+    stack** s;
+    s=create_stack(m);
+    for(j=1;j*d<=n;j++){
         for(long long i=0;i<d;i++)
             guiche(s[i%m],queuing(f));
         display_partial(j,m,l,s);
@@ -305,7 +303,6 @@ int main(){
             guiche(s[i%m],queuing(f));
         display_partial(j,m,l,s);
     }
-
     display_final(l);
     for(int i=0;i<3;i++)
         destroy_stack(s[i]);
