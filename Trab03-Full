@@ -265,7 +265,7 @@ void display_partial(long long j,long long m,list* l,stack* s[m]){
 void display_final(list* l){
     //Segunda parte da saída do programa.Vale notar que essa função também
     // chama a desalocação da dos nós de lista.
-    printf("\n-:| RELATÓRIO FINAL |:-\n %lli\n",l->counter);
+    printf("\n-:| RELATORIO FINAL |:-\n %lli\n",l->counter);
     node_l* n;
     while(l->first!=NULL){
         n=remove_list_first(l);
