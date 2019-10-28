@@ -1,12 +1,28 @@
 #include<stdlib.h>
 #include "stack.h"
-stack* create_stack(){
+stack** create_stack(long long m){
     //Um auxiliar aloca espaço espaço para uma pilha vazia e retorna o seu endereço.
-    stack* aux;
-    aux=malloc(sizeof(stack));
-    aux->top=NULL;
-    aux->counter=0;
+    stack** aux=NULL;
+    aux=malloc(sizeof(stack*)*m);
+    if(aux==NULL)
+        return NULL;
+    for(long long i=0;i<m;i++){
+        aux[i]=NULL;
+        aux[i]=malloc(sizeof(stack));
+        if(aux[i]==NULL)
+            return NULL;
+        aux[i]->top=NULL;
+        aux[i]->counter=0;
+    }
     return aux;
+}
+long long stack_size(stack* s){
+    return s->counter;
+}
+long long empty_stack(stack* s){
+    if(s->top==NULL)
+        return 1;
+    return 0;
 }
 void add_stack(stack* s,node_p* n){
     //Coloca o Nó no topo da pilha e Adiciona mais um ao contador de elementos da pilha.
@@ -33,4 +49,5 @@ void destroy_stack(stack* s){
             destroy_node_p(n1);
         }
     free(s);
+    s=NULL;
 }
