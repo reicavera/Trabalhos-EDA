@@ -1,5 +1,6 @@
 #include<stdlib.h>
 #include "stack.h"
+#include "node.h"
 #ifndef STACK
 #define STACK
 struct stack{
