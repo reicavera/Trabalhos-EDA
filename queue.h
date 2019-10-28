@@ -1,9 +1,8 @@
 #ifndef QUEUE
 #define QUEUE
 #include<stdlib.h>
-#include "queue.h"
 #include "node.h"
-
+#include "queue.h"
 
 struct queue{
     //Registro de fila que contém indicadores do tamanho máximo e atual,
