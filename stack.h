@@ -12,11 +12,11 @@ struct stack{
     long long counter;
 };
 typedef struct stack stack;
-stack** create_stack(long long m);//cria uma pilha vazia e a retorna.
+stack** create_stack(long long m);//Dado um número m,é criado um vetor com m pilhas vazias.
 long long stack_size(stack* s);//Retorna no numero de elementos da pilha dada.
 long long empty_stack(stack* s);//Retorna 1 se a pilha está vazia e 0 caso possua algum elemento. 
 void add_stack(stack* s,node_p* n);//adiciona um nó padrão no topo da pilha.
 node_p* remove_stack(stack* s);//Remove o topo da fila e o retorna.
-void destroy_stack(stack** s,long long m);//desaloca a pilha e todos os seus elementos.
+void destroy_stack(stack** s,long long m);//desaloca todas as pilha(e seus elementos) e o vetor em si.
 
 #endif
