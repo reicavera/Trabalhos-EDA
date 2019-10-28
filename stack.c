@@ -1,5 +1,6 @@
 #include<stdlib.h>
 #include "stack.h"
+#include "node.h"
 stack** create_stack(long long m){
     //Um auxiliar aloca espaço espaço para uma pilha vazia e retorna o seu endereço.
     stack** aux=NULL;
