@@ -64,7 +64,7 @@ int main(){
         display_partial(j,m,l,s);
     }
     display_final(l);
-    destroy_stack(s[i],m);
+    destroy_stack(s,m);
     destroy_queue(f);
     destroy_list(l);
     return 0;
