@@ -40,15 +40,17 @@ node_p* remove_stack(stack* s){
     s->counter--;
     return aux;
 }
-void destroy_stack(stack* s){
+void destroy_stack(stack** s,long long m){
     //Desaloca o espaço na memória de todos os elementos presentes na pilha para depois
     //desalocar o espaço ocupado pela própria pilha.
     node_p* n1;
-    for(int i=0;i<3;i++)
+    for(int i=0;i<m;i++){
         while(s->top!=NULL){
-            n1=remove_stack(s);
+            n1=remove_stack(s[i]);
             destroy_node_p(n1);
         }
+        free(s[i]);
+    }
     free(s);
     s=NULL;
 }
