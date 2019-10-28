@@ -1,4 +1,4 @@
-#include<stdlib.h>
+#ifndef STACK
 #define STACK
 #include<stdlib.h>
 #include "stack.h"
