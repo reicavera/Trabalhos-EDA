@@ -1,6 +1,6 @@
 #include<stdlib.h>
-#include "list.h"
 #include "node.h"
+#include "list.h"
 #ifndef LIST
 #define LIST
 
