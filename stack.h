@@ -17,6 +17,6 @@ long long stack_size(stack* s);
 long long empty_stack(stack* s);
 void add_stack(stack* s,node_p* n);
 node_p* remove_stack(stack* s);
-void destroy_stack(stack* s);
+void destroy_stack(stack** s,long long m);
 
 #endif
