@@ -1,5 +1,5 @@
 main:   main.o    node.o    stack.o queue.o list.o
-    gcc main.o  node.o  stack.o queue.o list.o -o   main    -Wall -Wextra -Werror -Wpedantic
+    gcc main.o  node.o  stack.o queue.o list.o -o   main    -Wall -Wextra -Werror -Wpedantic -lm
 main.o: main.c
     gcc -c main.c   -o main.o   -Wall -Wextra -Werror -Wpedantic
 node.o: node.c  node.h
