@@ -10,6 +10,7 @@ struct queue{
     node_p* data;
     long long max_size,size,front,bottom;
 };
+typedef struct queue queue;
 queue* create_queue(long long n);
 void add_queue(queue* f,long long scpfc,long long scpft,char sop,long long svalor);
 node_p* remove_queue(queue* f);
