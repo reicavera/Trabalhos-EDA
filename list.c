@@ -1,5 +1,6 @@
 #include<stdlib.h>
 #include "list.h"
+#include "node.h"
 list* create_list(){
     //Um auxiliar aloca um registro de pilha e retorna o endereço alocado.
     list* l=NULL;
