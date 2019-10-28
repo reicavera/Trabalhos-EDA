@@ -33,6 +33,7 @@ void display_final(list* l){
     }
 }
 node_p* queuing(queue* f){
+    //O cliente entra com as informações e vai para a fila.Após isso ele é retirado da fila.A função retorna os dados do cliente
     long long scpfc,scpft,svalor;
     char sop;
     scanf("%lli %lli %c %lli",&scpfc,&scpft,&sop,&svalor);
@@ -42,6 +43,7 @@ node_p* queuing(queue* f){
     return aux;
 }
 void guiche(stack* s,node_p* p){
+    //Leva o cliente para o guiche.
     add_stack(s,p);
 }
 int main(){
