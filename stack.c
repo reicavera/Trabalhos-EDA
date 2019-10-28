@@ -2,7 +2,7 @@
 #include "stack.h"
 #include "node.h"
 stack** create_stack(long long m){
-    //Um auxiliar aloca espaço espaço para uma pilha vazia e retorna o seu endereço.
+    //dado um número m,é criado um vetor com m pilhas vazias.
     stack** aux=NULL;
     aux=malloc(sizeof(stack*)*m);
     if(aux==NULL)
@@ -18,9 +18,11 @@ stack** create_stack(long long m){
     return aux;
 }
 long long stack_size(stack* s){
+    //Retorna o numero de elementos da pilha.
     return s->counter;
 }
 long long empty_stack(stack* s){
+    //Retorna 1 caso a pilha esteja vazia e 1 caso possua algum elemento.
     if(s->top==NULL)
         return 1;
     return 0;
@@ -41,8 +43,8 @@ node_p* remove_stack(stack* s){
     return aux;
 }
 void destroy_stack(stack** s,long long m){
-    //Desaloca o espaço na memória de todos os elementos presentes na pilha para depois
-    //desalocar o espaço ocupado pela própria pilha.
+    //Para cada pilha do vetor,desaloca o espaço na memória de todos os elementos presentes na pilha e desaloca a pilha
+    //em si.Após isso o vetor em si é desalocado.
     node_p* n1;
     for(int i=0;i<m;i++){
         while(s[i]->top!=NULL){
