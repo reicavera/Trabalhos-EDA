@@ -1,8 +1,8 @@
 #ifndef STACK
 #define STACK
 #include<stdlib.h>
-#include "stack.h"
 #include "node.h"
+#include "stack.h"
 
 struct stack{
     //Registro de dados de um pilha que contém:
