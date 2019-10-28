@@ -1,7 +1,7 @@
-#include <stdlib.h>
 #ifndef NODE
-#include "node.h"
 #define NODE
+#include "node.h"
+#include <stdlib.h>
 
 struct node_p{
     //Registro de dados do cliente, contendo:
