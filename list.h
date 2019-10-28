@@ -1,8 +1,8 @@
 #ifndef LIST
 #define LIST
 #include<stdlib.h>
-#include "list.h"
 #include "node.h"
+#include "list.h"
 
 struct list{
     //O registro da lista contém um contador dque indica o número de elementos da lista
