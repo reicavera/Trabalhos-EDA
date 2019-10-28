@@ -1,5 +1,6 @@
 #include<stdlib.h>
 #include "queue.h"
+#include "node.h"
 queue* create_queue(long long n){
      //Cria uma fila circular estática. Seus elementos são nós padrões
     queue* aux=NULL;
