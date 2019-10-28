@@ -1,7 +1,7 @@
 #include<stdlib.h>
 #include "queue.h"
-#include "node.h"
 #ifndef QUEUE
+#include "node.h"
 #define QUEUE
 
 struct queue{
