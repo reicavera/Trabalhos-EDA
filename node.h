@@ -1,6 +1,6 @@
 #include <stdlib.h>
-#include "node.h"
 #ifndef NODE
+#include "node.h"
 #define NODE
 
 struct node_p{
