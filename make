@@ -1,4 +1,4 @@
-main: main.o  node.o  stack.o queue.o list.o
+main: main.o node.o stack.o queue.o list.o
     gcc main.o node.o stack.o queue.o list.o -o main
 main.o: main.c
     gcc -c main.c -o main.o
