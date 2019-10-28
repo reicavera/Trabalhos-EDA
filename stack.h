@@ -1,8 +1,9 @@
 #include<stdlib.h>
-#include "stack.h"
-#ifndef STACK
-#include "node.h"
 #define STACK
+#include<stdlib.h>
+#include "stack.h"
+#include "node.h"
+
 struct stack{
     //Registro de dados de um pilha que contém:
     //Um ponteiro para o topo da pilha e um contador
