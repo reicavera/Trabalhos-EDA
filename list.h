@@ -10,6 +10,7 @@ struct list{
     node_l* first;
     long long counter;
 };
+typedef struct list list;
 list* create_list();
 long long list_size(list* l);
 void add_list(list* l,node_p* n);
