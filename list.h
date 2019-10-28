@@ -1,7 +1,7 @@
 #include<stdlib.h>
-#include "node.h"
 #include "list.h"
 #ifndef LIST
+#include "node.h"
 #define LIST
 
 struct list{
