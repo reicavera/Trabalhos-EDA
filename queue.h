@@ -1,5 +1,6 @@
 #include<stdlib.h>
 #include "queue.h"
+#include "node.h"
 #ifndef QUEUE
 #define QUEUE
 
