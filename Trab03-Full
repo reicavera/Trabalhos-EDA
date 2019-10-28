@@ -44,9 +44,9 @@ struct node_l{
 };
 typedef struct node_l node_l;
 node_l* create_node_l(){
-     //Um auxiliar aloca espaço para um Nó de lista(Inicia o número de operações desse
+    //Um auxiliar aloca espaço para um Nó de lista(Inicia o número de operações desse
     //Nó com uma operação e retorna o endereço do Nó alocado.
-    node_l* n;
+    node_l* n=NULL;
     n=malloc(sizeof(node_l));
     if(n==NULL)
         return NULL;
@@ -77,11 +77,12 @@ struct stack{
 typedef struct stack stack;
 stack** create_stack(long long m){
     //Um auxiliar aloca espaço espaço para uma pilha vazia e retorna o seu endereço.
-    stack** aux;
+    stack** aux=NULL;
     aux=malloc(sizeof(stack*)*m);
     if(aux==NULL)
         return NULL;
     for(long long i=0;i<m;i++){
+        aux[i]=NULL;
         aux[i]=malloc(sizeof(stack));
         if(aux[i]==NULL)
             return NULL;
@@ -186,7 +187,7 @@ struct list{
 typedef struct list list;
 list* create_list(){
     //Um auxiliar aloca um registro de pilha e retorna o endereço alocado.
-    list* l;
+    list* l=NULL;
     l=malloc(sizeof(list));
     if(l==NULL)
         return NULL;
