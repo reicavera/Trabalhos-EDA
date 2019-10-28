@@ -45,7 +45,7 @@ void destroy_stack(stack** s,long long m){
     //desalocar o espaço ocupado pela própria pilha.
     node_p* n1;
     for(int i=0;i<m;i++){
-        while(s->top!=NULL){
+        while(s[i]->top!=NULL){
             n1=remove_stack(s[i]);
             destroy_node_p(n1);
         }
