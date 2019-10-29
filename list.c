@@ -15,15 +15,11 @@ long long list_size(list* l){
     return l->counter;
 }
 void search_list(long long valor,long long cpf,list* l){
-    //Primeiramente verifica se a lista está vazia ou se o cpf do primeiro elemento é
-    //maior do que do próvável novo nó.Se sim,adiciona um nó na primeira posição da lista.
-    //Se não,verifica se o cpf do primeiro elemento é igual ao do cpf próvalvel nó.Se sim,
-    //apenas altera o saldo e incrementa o número de operações do primeiro elemento da lista.
-    //Se não,é feito um loop com um auxiliar percorrendo a lista até que se chegue no ultimo
-    //elemento ou que o cpf do próximo elemento seja deixe de ser menor que o cpf do possível
-    //novo elemento.Caso o auxiliar tenha chegado  ao ultimo elemento ou que o cpf do próximo
-    //seja maior,adiciona um nó logo após o nó apontado pelo auxiliar.Caso contrário,apenas
-    //altera o saldo e incrementa o número de operações do próximo do auxiliar.Não retorna nada.
+    //Se a lista está vazia,cria-se um nó de lista que aponta para ele mesmo em ambos os sentidos e o insere como primeiro
+    //elemento da lista.Se o cpf é maior que o atual maior ou menor que o atual menor,entao o né criado para ficar entre os
+    //dois(caso seja menor que o menor,ele assume o inicio da lista).Caso contrario a lista é percorrida até que se encontre
+    //um nó cujo cpf não seja menor que o do que se pretende adicionar.Se os cpfs são iguais,apenas se altera os dados do cpf
+    //já existente e caso contrário,é criado um nó que fica entre o nó buscado e seu anterior.
     node_l* aux;
     node_l* n;
     if(l->first==NULL){
