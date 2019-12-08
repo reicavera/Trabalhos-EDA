@@ -18,6 +18,8 @@
 		aux->esq=NULL;
 		aux->dir=NULL;
 		aux->id=id;
+		aux->op=0;
+		aux->val=0;
 		return aux;
 		}
 	arv* criar_arv(){
@@ -243,10 +245,11 @@
 	void insere(arv* a,int id,int op,int val){
 		no* n=criar_no(id);
 		n=insere_busca(a,n,a->raiz,NULL);
-		n->op=op;
-		n->val=val;
+		n->op++;
 		if(op==1)
-			n->val*=-1;
+			n->val-=val;
+		else
+			n->val+=val;
 		while(n!=NULL){
 			recalcular_altura(n);
 			rebalancear(a,n);
@@ -365,7 +368,7 @@
 					if(flag==1){
 						flag=0;
 						exib(a,x);
-					}	
+					}
 					else
 						consulta(a);
 					break;
