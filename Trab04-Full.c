@@ -106,12 +106,14 @@
 		return aux;
 	}
 	void recalcular_altura(no* n){
+		if(n!=NULL){
 		int c=1;
 		if(n->esq!=NULL)
 			c=n->esq->alt+1;
 		if(n->dir!=NULL && c<n->dir->alt+1)
 			c=n->dir->alt+1;
 		n->alt=c;
+		}
 	}
 	int balanceamento(no* n){
 		if(n==NULL)
@@ -125,95 +127,99 @@
 	}
 	void rot_s_direita(arv* a,no* n){
 		no* aux=n->esq->dir;
+		no* aux2=n->esq;
+		aux2->pai=n->pai;
 		if(aux!=NULL)
 			aux->pai=n;
-		n->esq->dir=n;
-		n->esq->pai=n->pai;
 		if(n->pai!=NULL){
 			if(n->pai->esq==n)
-				n->pai->esq=n->esq;
+				n->pai->esq=aux2;
 			else
-				n->pai->dir=n->esq;
+				n->pai->dir=aux2;
 		}
 		else
-			a->raiz=n->esq;
-		n->pai=n->esq;
+			a->raiz=aux2;
 		n->esq=aux;
+		n->pai=aux2;
+		aux2->dir=n;
 		recalcular_altura(n);
-		recalcular_altura(n->pai->dir);
-		recalcular_altura(n->pai);
+		recalcular_altura(aux2);
 	}
 	void rot_s_esquerda(arv* a,no* n){
 		no* aux=n->dir->esq;
+		no* aux2=n->dir;
 		if(aux!=NULL)
 			aux->pai=n;
-		n->dir->esq=n;
-		n->dir->pai=n->pai;
+		aux2->pai=n->pai;
 		if(n->pai!=NULL){
-			if(n->pai->dir==n)
-				n->pai->dir=n->dir;
+			if(n->pai->esq==n)
+				n->pai->esq=aux2;
 			else
-				n->pai->esq=n->dir;
+				n->pai->dir=aux2;
 		}
 		else
-			a->raiz=n->dir;
-		n->pai=n->dir;
+			a->raiz=aux2;
 		n->dir=aux;
+		n->pai=aux2;
+		aux2->esq=n;
 		recalcular_altura(n);
-		recalcular_altura(n->pai->esq);
-		recalcular_altura(n->pai);
+		recalcular_altura(aux2);
 	}
 	void rot_d_direita(arv* a,no* n){
 		no* aux1=n->esq->dir->esq;
 		no* aux2=n->esq->dir->dir;
+		no* x=n->esq;
+		no* y=n->esq->dir;
 		if(aux1!=NULL)
-			aux1->pai=n->esq;
+			aux1->pai=x;
 		if(aux2!=NULL)
 			aux2->pai=n;
-		n->esq->dir->pai=n->pai;
+		y->pai=n->pai;
 		if(n->pai!=NULL){
 			if(n->pai->esq==n)
-				n->pai->esq=n->esq->dir;
+				n->pai->esq=y;
 			else
-				n->pai->dir=n->esq->dir;
+				n->pai->dir=y;
 		}
 		else
-			a->raiz=n->esq->dir;
-		n->esq->dir->esq=n->esq;
-		n->esq->dir->dir=n;
-		n->esq->pai=n->esq->dir;
-		n->pai=n->esq->dir;
-		n->esq->dir=aux1;
+			a->raiz=y;
+		x->dir=aux1;
 		n->esq=aux2;
+		y->esq=x;
+		y->dir=n;
+		x->pai=y;
+		n->pai=y;
 		recalcular_altura(n);
-		recalcular_altura(n->pai->dir);
-		recalcular_altura(n->pai);
+		recalcular_altura(x);
+		recalcular_altura(y);
 	}
 	void rot_d_esquerda(arv* a,no* n){
 		no* aux1=n->dir->esq->dir;
 		no* aux2=n->dir->esq->esq;
+		no* x=n->dir;
+		no* y=n->dir->esq;
 		if(aux1!=NULL)
-		aux1->pai=n->dir;
+			aux1->pai=x;
 		if(aux2!=NULL)
 			aux2->pai=n;
-		n->dir->esq->pai=n->pai;
+		y->pai=n->pai;
 		if(n->pai!=NULL){
-			if(n->pai->dir==n)
-				n->pai->dir=n->dir->esq;
+			if(n->pai->esq==n)
+				n->pai->esq=y;
 			else
-				n->pai->esq=n->dir->esq;
+				n->pai->dir=y;
 		}
 		else
-			a->raiz=n->dir->esq;
-		n->dir->esq->dir=n->dir;
-		n->dir->esq->esq=n;
-		n->dir->pai=n->dir->esq;
-		n->pai=n->dir->esq;
-		n->dir->esq=aux1;
+			a->raiz=y;
+		x->esq=aux1;
 		n->dir=aux2;
+		y->dir=x;
+		y->esq=n;
+		x->pai=y;
+		n->pai=y;
 		recalcular_altura(n);
-		recalcular_altura(n->pai->esq);
-		recalcular_altura(n->pai);
+		recalcular_altura(x);
+		recalcular_altura(y);
 	}
 	void rebalancear(arv* a,no* n){
 		int c=balanceamento(n);
@@ -254,8 +260,8 @@
 	}
 	no* removendo_no(arv* a,no* n){
 		no* aux=NULL;
-		a->qtd--;
 		if(n->esq==NULL||n->dir==NULL){
+			a->qtd--;
 			if(n->esq!=NULL){
 				n->esq->pai=n->pai;
 				aux=n->esq;
